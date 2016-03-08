@@ -12,6 +12,7 @@
 hs_err_pid*
 src/essai/
 data*/
+db/
 .idea/
 target/
 *.iml
