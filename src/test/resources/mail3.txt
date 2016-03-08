@@ -1,0 +1,13 @@
+From lionel@localhost.localdomain  Fri Dec 18 17:20:18 2015
+Return-Path: <lionel@localhost.localdomain>
+X-Original-To: lionel
+Delivered-To: lionel@localhost.localdomain
+Received: by localhost.localdomain (Postfix, from userid 501)
+        id AD4A11862ED3; Fri, 18 Dec 2015 17:20:18 +0100 (CET)
+To: lionel@localhost.localdomain
+Subject: Databases
+Message-Id: <20151218161318.AD4A11862ED3@localhost.localdomain>
+Date: Fri, 18 Dec 2015 17:20:18 +0100 (CET)
+From: lionel@localhost.localdomain (Lionel G)
+
+Postgresql, mysql, oracle

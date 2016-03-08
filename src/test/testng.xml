@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="database">
+    <test name="all">
+        <classes>
+            <class name="com.gmail.lionelg3.nxtraces.tests.WriteDatabaseTest"/>
+            <class name="com.gmail.lionelg3.nxtraces.tests.ReadDatabaseTest"/>
+            <class name="com.gmail.lionelg3.nxtraces.tests.SearchDatabaseTest"/>
+            <class name="com.gmail.lionelg3.nxtraces.tests.DatabaseInfoTest"/>
+        </classes>
+    </test>
+</suite>
