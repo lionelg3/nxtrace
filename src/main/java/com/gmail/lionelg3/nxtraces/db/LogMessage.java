@@ -12,6 +12,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.*;
 import java.lang.ref.WeakReference;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,8 +46,10 @@ public class LogMessage implements Serializable {
         this.exception = null;
         if (mimeMessage == null || mimeMessage.get() == null) {
             try {
-                if (rawData == null)
-                    rawData = Files.readAllBytes(Paths.get(NXTraces.CONFIGURATION.getString("repository.path") + "/" + filename));
+                if (rawData == null) {
+                    Path path = (NXTraces.CONFIGURATION == null) ? Paths.get(filename) : Paths.get(NXTraces.CONFIGURATION.getString("repository.path") + "/" + filename);
+                    rawData = Files.readAllBytes(path);
+                }
                 MimeMessage rawMessage = new MimeMessage(Session.getDefaultInstance(new Properties()), new ByteArrayInputStream(rawData));
                 this.mimeMessage = new WeakReference<>(rawMessage);
                 rawMessage.getMessageID();
