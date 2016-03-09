@@ -63,7 +63,6 @@ public class Repository {
     }
 
     public void insertMessage(String filename, byte[] data) throws IOException {
-        LOGGER.info("Insert: " + filename);
         String subpath = df.format(new Date());
         String id = subpath + "/" + filename;
         String fullpath = this.filesRelativePath + "/" + subpath;
@@ -72,6 +71,7 @@ public class Repository {
             fout.write(data);
             fout.flush();
             fout.close();
+            LOGGER.info("Insert: " + id);
             database.put(id, new LogMessage(id));
         } else {
             throw new IOException("Can not create directory in " + this.filesRelativePath);
@@ -89,7 +89,7 @@ public class Repository {
                                 .sentence(id)
                                 .createQuery()
                 ).createQuery();
-        LOGGER.info("    findById " + findById);
+        LOGGER.info("FindById: " + findById);
 
         CacheQuery cacheQuery = searchManager.getQuery(findById, LogMessage.class).maxResults(1);
 
