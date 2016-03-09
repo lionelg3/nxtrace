@@ -58,6 +58,8 @@ public class QueryService {
     @Path("/load")
     public JsonObject get(@QueryParam("id") String id) {
         LogMessage logMessage = Repository.singleton().load(id);
+        if (logMessage == null)
+            return Json.createObjectBuilder().build();
         return fullMessageToJson(logMessage);
     }
 
