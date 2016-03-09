@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.gmail.lionelg3</groupId>
-    <artifactId>nstraces</artifactId>
+    <artifactId>nxtraces</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <scm>
@@ -151,4 +151,86 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>generate-jsw-scripts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate-daemons</goal>
+                        </goals>
+                        <configuration>
+                            <target>${project.build.directory}/assembler-${project.name}</target>
+                            <repositoryLayout>flat</repositoryLayout>
+                            <daemons>
+                                <daemon>
+                                    <id>nxtraces</id>
+                                    <platforms>
+                                        <platform>jsw</platform>
+                                    </platforms>
+                                    <mainClass>com.gmail.lionelg3.nxtraces.Main</mainClass>
+                                    <commandLineArguments>
+                                        <commandLineArgument>--server</commandLineArgument>
+                                        <commandLineArgument>--conf</commandLineArgument>
+                                        <commandLineArgument>conf/nxtraces.conf</commandLineArgument>
+                                    </commandLineArguments>
+                                    <generatorConfigurations>
+                                        <generatorConfiguration>
+                                            <includes>
+                                                <include>linux-x86-64</include>
+                                                <include>macosx-universal-64</include>
+                                            </includes>
+                                            <generator>jsw</generator>
+                                            <configuration>
+                                                <property>
+                                                    <name>configuration.directory.in.classpath.first</name>
+                                                    <value>conf</value>
+                                                </property>
+                                                <property>
+                                                    <name>wrapper.logfile.maxsize</name>
+                                                    <value>10m</value>
+                                                </property>
+                                            </configuration>
+                                        </generatorConfiguration>
+                                    </generatorConfigurations>
+                                    <jvmSettings>
+                                        <initialMemorySize>256M</initialMemorySize>
+                                        <maxMemorySize>1024M</maxMemorySize>
+                                        <extraArguments>
+                                            <extraArgument>-server</extraArgument>
+                                        </extraArguments>
+                                    </jvmSettings>
+                                </daemon>
+                            </daemons>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <version>2.6</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
