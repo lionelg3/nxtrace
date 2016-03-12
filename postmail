@@ -1,0 +1,10 @@
+#!/bin/sh
+EX_TEMPFAIL=75
+CURL=/usr/bin/curl
+NXTRACES_SERVER_IP=localhost
+NXTRACES_PORT=8080
+
+TARGET="http://$NXTRACES_SERVER_IP:$NXTRACES_PORT/api/post"
+CMD="$CURL -s --form mail=@- $TARGET"
+echo $CMD
+$CMD || exit $EX_TEMPFAIL
