@@ -33,8 +33,9 @@ public class DatabaseInfoTest {
 
     @Test
     public void size() {
-        String MAIL_FILE = "src/test/resources/mail1.txt";
-        LogMessage message = new LogMessage(MAIL_FILE);
+        String MAIL_PATH = "src/test/resources";
+        String MAIL_FILE = "mail1.txt";
+        LogMessage message = new LogMessage(MAIL_PATH, MAIL_FILE);
         Assert.assertEquals(message.getSubject(), "Unix OS", "Compare sujet");
     }
 

@@ -38,7 +38,7 @@ public class SearchDatabaseTest {
 	public void search() {
 		Cache<Object, Object> db = cacheManager.getCache();
 		for (int i = 1; i <= 3; i++) {
-			LogMessage message = new LogMessage("src/test/resources/mail" + i + ".txt");
+			LogMessage message = new LogMessage("src/test/resources", "mail" + i + ".txt");
 			db.put(message.getMessageID(), message);
 		}
 		System.out.println("maildb.size() = " + db.size());

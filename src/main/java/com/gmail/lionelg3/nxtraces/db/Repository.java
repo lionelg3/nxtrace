@@ -62,17 +62,17 @@ public class Repository {
         return _REPOSITORY;
     }
 
-    public void insertMessage(String filename, byte[] data) throws IOException {
+    public void insertMessage(String id, byte[] data) throws IOException {
         String subpath = df.format(new Date());
-        String id = subpath + "/" + filename;
-        String fullpath = this.filesRelativePath + "/" + subpath;
+        String filename = subpath + File.separator + id;
+        String fullpath = this.filesRelativePath + File.separator + subpath;
         if (new File(fullpath).exists() || new File(fullpath).mkdirs()) {
-            FileOutputStream fout = new FileOutputStream(new File(this.filesRelativePath + "/" + id));
+            FileOutputStream fout = new FileOutputStream(new File(this.filesRelativePath + File.separator + filename));
             fout.write(data);
             fout.flush();
             fout.close();
-            LOGGER.info("Insert: " + id);
-            database.put(id, new LogMessage(id));
+            LOGGER.info("Insert: " + filename);
+            database.put(filename, new LogMessage(subpath, id));
         } else {
             throw new IOException("Can not create directory in " + this.filesRelativePath);
         }

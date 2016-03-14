@@ -21,7 +21,8 @@ import java.io.IOException;
  */
 public class WriteDatabaseTest {
 
-	private static final String MAIL_FILE = "src/test/resources/mail2.txt";
+	private static final String MAIL_PATH = "src/test/resources";
+	private static final String MAIL_FILE = "mail2.txt";
 	EmbeddedCacheManager cacheManager;
 
 	@BeforeClass
@@ -36,7 +37,7 @@ public class WriteDatabaseTest {
 
 	@Test()
 	public void write() {
-		LogMessage message = new LogMessage(MAIL_FILE);
+		LogMessage message = new LogMessage(MAIL_PATH, MAIL_FILE);
 		Cache<Object, Object> db = cacheManager.getCache();
 		for (int i = 0; i < 100; i++) {
 			db.put("id" + i, message);

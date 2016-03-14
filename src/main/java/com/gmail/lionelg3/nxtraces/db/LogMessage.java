@@ -27,7 +27,8 @@ import java.util.stream.Collectors;
 public class LogMessage implements Serializable {
 
     @Field(name="id", index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-    private String filename;
+    private String id;
+    private String path;
     private byte[] rawData;
     private transient WeakReference<MimeMessage> mimeMessage;
     private Exception exception;
@@ -36,9 +37,10 @@ public class LogMessage implements Serializable {
         super();
     }
 
-    public LogMessage(String filename) {
+    public LogMessage(String path, String id) {
         this();
-        this.filename = filename;
+        this.id = id;
+        this.path = path;
         getMimeMessage();
     }
 
@@ -47,7 +49,8 @@ public class LogMessage implements Serializable {
         if (mimeMessage == null || mimeMessage.get() == null) {
             try {
                 if (rawData == null) {
-                    Path path = (NXTraces.CONFIGURATION == null) ? Paths.get(filename) : Paths.get(NXTraces.CONFIGURATION.getString("repository.path") + "/" + filename);
+                    String filename = path + File.separator + id;
+                    Path path = (NXTraces.CONFIGURATION == null) ? Paths.get(filename) : Paths.get(NXTraces.CONFIGURATION.getString("repository.path") + File.separator + filename);
                     rawData = Files.readAllBytes(path);
                 }
                 MimeMessage rawMessage = new MimeMessage(Session.getDefaultInstance(new Properties()), new ByteArrayInputStream(rawData));
@@ -68,8 +71,8 @@ public class LogMessage implements Serializable {
         return (this.exception != null);
     }
 
-    public String getFilename() {
-        return filename;
+    public String getId() {
+        return id;
     }
 
     public byte[] getRawData() {
@@ -184,12 +187,13 @@ public class LogMessage implements Serializable {
     public String toString() {
         try {
             return "LogMessage{" +
-                    "filename='" + filename + '\'' +
+                    "id='" + id + '\'' +
+                    "path='" + path + '\'' +
                     ", raw='" + new String(rawData) + '\'' +
                     "}";
         } catch (Exception e) {
             return "LogMessage{" +
-                    "filename='" + filename + '\'' +
+                    "path='" + path + '\'' +
                     "}";
         }
     }

@@ -100,7 +100,7 @@ public class QueryService {
                 .add("messageid", message.getMessageID() != null ? message.getMessageID() : "")
                 .add("recipients", message.getRecipients() != null ? message.getRecipients() : "")
                 .add("size", message.getSize())
-                .add("id", message.getFilename())
+                .add("id", message.getId())
                 .add("subject", message.getSubject() != null ? message.getSubject() : "")
                 .add("date", message.getSentDate() != null ? DATE_FORMATTER.format(message.getSentDate()) : "")
                 .build();
@@ -108,7 +108,7 @@ public class QueryService {
 
     private static JsonObject shortMessageToJson(LogMessage message) {
         return Json.createObjectBuilder()
-                .add("id", message.getFilename())
+                .add("id", message.getId())
                 .add("subject", message.getSubject() != null ? message.getSubject() : "")
                 .add("date", message.getSentDate() != null ? DATE_FORMATTER.format(message.getSentDate()) : "")
                 .build();
